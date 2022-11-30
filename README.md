@@ -20,7 +20,7 @@ python -m pip install motuclient==1.8.4 --no-cache-dir
 
 ### Data access
 
-The Geostrophy + Ekman historical [data set](https://doi.org/10.48670/moi-00050) compared to Global Drifter Program (GDP) drifters can be downloaded with the following command. You must replace ```<USERNAME> and "<PASSWORD>" with your own credentials. If you do not have any, you can register [here](https://data.marine.copernicus.eu/register).
+The Geostrophy + Ekman historical [data set](https://doi.org/10.48670/moi-00050) compared to Global Drifter Program (GDP) drifters can be downloaded with the following command. You must replace ```<USERNAME>``` and "<PASSWORD>" with your own credentials. If you do not have any, you can register [here](https://data.marine.copernicus.eu/register).
 
 (It can take few minutes before the download starts)
 

@@ -1,6 +1,6 @@
 ### Requirements
 
-You can install all librairies used in the notebooks from the terminal with the following command:
+You can install all libraries used in the notebooks from the terminal with the following command:
 
 ```bash
 conda create -n adsc_svp -c conda-forge parcels jupyter cartopy scikit-learn seaborn

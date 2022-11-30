@@ -6,7 +6,13 @@ You can install all librairies used in the notebooks from the terminal with the 
 conda create -n adsc_svp -c conda-forge parcels jupyter cartopy scikit-learn seaborn
 ```
 
-You can install motuclient from the terminal with the following command. It is required to download the different datasets directly from the terminal ([see details](https://help.marine.copernicus.eu/en/articles/4796533-what-are-the-motu-apis)).
+To activate your virtual environment with the installed librairies, run:
+
+```bash
+conda activate adsc_svp
+```
+
+You can install motuclient from the terminal with the following command. It is required to download the different datasets directly from the terminal ([see details](https://help.marine.copernicus.eu/en/articles/4796533-what-are-the-motu-apis)). You can install the client with the environment activated; in this case do not forget to activate it to use the client.
 
 ```bash
 python -m pip install motuclient==1.8.4 --no-cache-dir

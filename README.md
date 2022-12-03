@@ -43,7 +43,7 @@ easternEdge=-40
 
 ### Bathymetry Data
 
-A bathymetry data set is provided in the ```./data/bathy``` folder. It is a subset extracted from the General bathymetric Chart of the Ocean (GEBCO) that can be also easily downloaded from the [GEBCO's website](https://download.gebco.net).
+A set of bathymetric data is provided in the ```./data/bathy``` folder. It is a subset extracted from the General Bathymetric Chart of the Ocean (GEBCO) which can also be easily downloaded from the [GEBCO's website](https://download.gebco.net).
 You can directly select the size of the domain you need. Here, the selected domain extent from 59° to 62°N and -49° to -40°E.
 
 Credits: GEBCO Compilation Group (2022) GEBCO 2022 Grid (doi:10.5285/e0f0bb80- ab44-2739-e053-6c86abc0289c).

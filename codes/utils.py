@@ -5,8 +5,15 @@ import cartopy.crs                     as ccrs
 import cartopy.mpl.ticker              as ctk
 import cartopy.feature                 as cfeat
 import matplotlib.pyplot as plt
+
+from matplotlib.projections import PolarAxes
+import mpl_toolkits.axisartist.grid_finder as gf
+import mpl_toolkits.axisartist.floating_axes as fa
+
 import numpy as np
 
+from pyproj import Geod
+g = Geod(ellps='WGS84')
 
 # Import data
 
@@ -20,6 +27,8 @@ y000 = iso000[:,1]
 
 
 # Define functions
+
+############### PLOTS ############### 
 
 def createFigurewithProjection(figsize, nrows, ncols, bounds):
     
@@ -58,6 +67,102 @@ def shapeAxis(ax, rect, addCoastline):
     gl.xlabel_style = {'size': 14}
     gl.ylabel_style = {'size': 14}
 
+# Plot Taylor diagram from Y. Copin's code (10.5281/zenodo.5548061)
+class TaylorDiagram(object):
+    def __init__(self, STD ,fig=None, rect=111, label='_'):
+        self.STD = STD
+        tr = PolarAxes.PolarTransform()
+        # Correlation labels
+        rlocs = np.concatenate(((np.arange(11.0) / 10.0), [0.95, 0.99]))
+        tlocs = np.arccos(rlocs) # Conversion to polar angles
+        gl1 = gf.FixedLocator(tlocs) # Positions
+        tf1 = gf.DictFormatter(dict(zip(tlocs, map(str, rlocs))))
+        # Standard deviation axis extent
+        self.smin = 0
+        self.smax = 1.5 * self.STD
+        gh = fa.GridHelperCurveLinear(tr,extremes=(0,(np.pi/2),self.smin,self.smax),grid_locator1=gl1,tick_formatter1=tf1,)
+        if fig is None:
+            fig = plt.figure()
+        ax = fa.FloatingSubplot(fig, rect, grid_helper=gh)
+        fig.add_subplot(ax)
+        # Angle axis
+        ax.axis['top'].set_axis_direction('bottom')
+        ax.axis['top'].label.set_text("CORRELATION COEFFICIENT $R$")
+        ax.axis['top'].label.set_fontsize(15)
+        ax.axis['top'].toggle(ticklabels=True, label=True)
+        ax.axis['top'].major_ticklabels.set_axis_direction('top')
+        ax.axis['top'].label.set_axis_direction('top')
+        # X axis
+        ax.axis['left'].set_axis_direction('bottom')
+        ax.axis['left'].label.set_text("NORMALIZED STANDARD DEVIATION $\hat{\sigma_f}$")
+        ax.axis['left'].label.set_fontsize(15)
+        ax.axis['left'].toggle(ticklabels=True, label=True)
+        ax.axis['left'].major_ticklabels.set_axis_direction('bottom')
+        ax.axis['left'].label.set_axis_direction('bottom')
+        # Y axis
+        ax.axis['right'].set_axis_direction('top')
+        ax.axis['right'].label.set_text("NORMALIZED STANDARD DEVIATION $\hat{\sigma_f}$")
+        ax.axis['right'].label.set_fontsize(15)
+        ax.axis['right'].toggle(ticklabels=True, label=True)
+        ax.axis['right'].major_ticklabels.set_axis_direction('left')
+        ax.axis['right'].label.set_axis_direction('top')
+        # Useless
+        ax.axis['bottom'].set_visible(False)
+        # Contours along standard deviations
+        ax.grid()
+        self._ax = ax # Graphical axes
+        self.ax = ax.get_aux_axes(tr) # Polar coordinates
+        # Add reference point and STD contour
+        l , = self.ax.plot([0], self.STD, color='navy', marker='o', ls='', ms=8)#, label=label)
+        t = np.linspace(0, (np.pi / 2.0))
+        r = np.zeros_like(t) + self.STD
+        self.ax.plot(t, r, color='navy', ls='-', label='_', lw=2)
+        # Collect sample points for latter use (e.g. legend)
+        self.samplePoints = [l]
+    def add_sample(self,STD,r,*args,**kwargs):
+        l,= self.ax.plot(np.arccos(r), STD, *args, **kwargs) # (theta, radius)
+        self.samplePoints.append(l)
+        return l
+    def add_contours(self,levels=[0.2, 0.4, 0.6, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1.0],**kwargs):
+        possible_std = np.linspace(self.smin, self.smax, 200)
+        possible_correl = np.linspace(0, 1, 200)
+        mesh_std, mesh_correl = np.meshgrid(possible_std, possible_correl)
+
+        R0 = 1
+        tss = (4*(1+mesh_correl))/(((mesh_std+(1/mesh_std))**2) * (1+R0))
+        
+        contours = self.ax.contour(np.arccos(mesh_correl), mesh_std, tss, levels, **kwargs)
+        
+#         rs, ts = np.meshgrid(np.linspace(self.smin, self.smax), np.linspace(0, (np.pi / 2.0)))
+#         RMSE=np.sqrt(np.power(self.STD, 2) + np.power(rs, 2) - (2.0 * self.STD * rs  *np.cos(ts)))
+#         contours = self.ax.contour(ts, rs, RMSE, levels, **kwargs)
+        return contours
+
+def srl(obsSTD, s, r, l, boolean, fname, cs, mark, size, alpha, title):
+    fig=plt.figure(figsize=(9,9), dpi=300)
+    dia=TaylorDiagram(obsSTD, fig=fig, rect=111, label='Reference ${\sigma_r}$')
+    plt.clabel(dia.add_contours(colors='0.5'), inline=1, fontsize=14)
+    # cs = plt.matplotlib.cm.jet(np.linspace(0, 1, len(l)))
+#     cs = ['red']*len(s)
+
+    srlc = zip(s, r, l, boolean, cs, mark, size, alpha)
+    for i in srlc:
+        if i[3]:
+            dia.add_sample(i[0], i[1], label=i[2], c=i[4], marker=i[5], markersize=i[6], alpha=i[7])
+        else:
+            dia.add_sample(i[0], i[1], c=i[4], marker=i[5], markersize=i[6], alpha=i[7])
+        spl = [p.get_label() for p in dia.samplePoints]
+
+        fig.legend(dia.samplePoints, spl, numpoints=1, prop=dict(size='12.7'), loc='upper right', bbox_to_anchor=(0.7, 0.4, 0.5, 0.5), framealpha=1)
+
+    plt.title(title, fontsize=16)
+    plt.text(obsSTD+0.03, +0.03, 'Reference ${\sigma_r}$', fontsize=15, color='navy')
+
+    plt.tight_layout()
+
+
+############### COMPUTE ###############
+
 def AlongAcrossComponent(lon, lat, comp):
     
     ALONG = []
@@ -87,8 +192,8 @@ def AlongAcrossComponent(lon, lat, comp):
         # Compute velocities
         angles = np.abs(np.angle(z_clos/complex_velocity))
 
-        dist_along = np.sin(angles)*np.abs(complex_velocity)
-        dist_across = np.cos(angles)*np.abs(complex_velocity)
+        # dist_along = np.sin(angles)*np.abs(complex_velocity)
+        # dist_across = np.cos(angles)*np.abs(complex_velocity)
 
         angles = np.angle(z_clos/complex_velocity)
         vel_along = np.sin(angles)*np.abs(complex_velocity)
@@ -128,13 +233,13 @@ def CenterGravity(lons, lats):
 
 def drifterDailyResampling(timeaxis, drifter_dataset, shift=12):
 
-    lon_origin = drifter_dataset.longitude.values
-    lat_origin = drifter_dataset.latitude.values
+    lon_origin = drifter_dataset.lon.values
+    lat_origin = drifter_dataset.lat.values
     time_origin = drifter_dataset.time.values
 
     time12h_shift = np.unique(timeaxis[:-1]+np.timedelta64(shift, 'h'))
-    lon_00 = np.zeros(len(time12h_shift))
-    lat_00 = np.zeros(len(time12h_shift))
+    lon_00 = np.zeros(len(time12h_shift))*np.nan
+    lat_00 = np.zeros(len(time12h_shift))*np.nan
     dt = float(np.diff(np.unique(timeaxis))[0])*1e-9
 
     arg = np.array([np.argmin(np.abs(time_origin[i] - time12h_shift)) for i in range(len(time_origin))])
@@ -142,9 +247,11 @@ def drifterDailyResampling(timeaxis, drifter_dataset, shift=12):
     for d in range(len(time12h_shift)):
         lons = lon_origin[arg==d]
         lats = lat_origin[arg==d]
-        lo, la = CenterGravity(lons[(~np.isnan(lons))&(~np.isnan(lats))], lats[(~np.isnan(lons))&(~np.isnan(lats))])
-        lon_00[d] = lo
-        lat_00[d] = la
+
+        if len(lons)>0:
+            lo, la = CenterGravity(lons[(~np.isnan(lons))&(~np.isnan(lats))], lats[(~np.isnan(lons))&(~np.isnan(lats))])
+            lon_00[d] = lo
+            lat_00[d] = la
 
     notnan = (~np.isnan(lon_00))
     lon_00 = lon_00[notnan]
@@ -163,6 +270,7 @@ def drifterDailyResampling(timeaxis, drifter_dataset, shift=12):
     LON, LAT = c_grav[:, 0], c_grav[:, 1]
     
     complex_velocity = U + 1j*V
+
     ALONG, ACROSS = AlongAcrossComponent(LON, LAT, complex_velocity)
 
     return TIME, LON, LAT, U, V, ALONG, ACROSS

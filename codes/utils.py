@@ -15,6 +15,13 @@ import numpy as np
 from pyproj import Geod
 g = Geod(ellps='WGS84')
 
+
+
+import warnings
+
+# Hide the warnings caused by hidden legend on Taylor diagrams
+warnings.simplefilter(action='ignore', category=UserWarning)
+
 # Import data
 
 iso600 = np.loadtxt('../data/bathy/smooth_600m_isobath.txt')
@@ -133,17 +140,12 @@ class TaylorDiagram(object):
         
         contours = self.ax.contour(np.arccos(mesh_correl), mesh_std, tss, levels, **kwargs)
         
-#         rs, ts = np.meshgrid(np.linspace(self.smin, self.smax), np.linspace(0, (np.pi / 2.0)))
-#         RMSE=np.sqrt(np.power(self.STD, 2) + np.power(rs, 2) - (2.0 * self.STD * rs  *np.cos(ts)))
-#         contours = self.ax.contour(ts, rs, RMSE, levels, **kwargs)
         return contours
 
 def srl(obsSTD, s, r, l, boolean, fname, cs, mark, size, alpha, title):
     fig=plt.figure(figsize=(9,9), dpi=300)
     dia=TaylorDiagram(obsSTD, fig=fig, rect=111, label='Reference ${\sigma_r}$')
     plt.clabel(dia.add_contours(colors='0.5'), inline=1, fontsize=14)
-    # cs = plt.matplotlib.cm.jet(np.linspace(0, 1, len(l)))
-#     cs = ['red']*len(s)
 
     srlc = zip(s, r, l, boolean, cs, mark, size, alpha)
     for i in srlc:

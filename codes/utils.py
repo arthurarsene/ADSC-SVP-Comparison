@@ -194,9 +194,6 @@ def AlongAcrossComponent(lon, lat, comp):
         # Compute velocities
         angles = np.abs(np.angle(z_clos/complex_velocity))
 
-        # dist_along = np.sin(angles)*np.abs(complex_velocity)
-        # dist_across = np.cos(angles)*np.abs(complex_velocity)
-
         angles = np.angle(z_clos/complex_velocity)
         vel_along = np.sin(angles)*np.abs(complex_velocity)
         vel_across = np.cos(angles)*np.abs(complex_velocity)

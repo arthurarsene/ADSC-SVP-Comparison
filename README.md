@@ -1,3 +1,9 @@
+# Table of Contents
+1. [Requirements](#example)
+2. [Download the data](#example2)
+3. [Geostrophy data set](#third-example)
+
+
 ### Requirements
 
 You can install all libraries used in the notebooks from the terminal with the following command:

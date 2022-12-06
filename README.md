@@ -11,9 +11,9 @@
 ## Introduction<a name="introduction"></a>
 
 The methodology presented consists of three steps:
-    - Point-wise comparison between gridded Eulerian and Lagrangian velocity fields
-    - Eulerian gridding of Lagrangian velocities
-    - Observed and synthetic trajectories
+ - Point-wise comparison between gridded Eulerian and Lagrangian velocity fields
+ - Eulerian gridding of Lagrangian velocities
+ - Observed and synthetic trajectories
     
 Each step is presented in a separate python notebook.
 A python notebook also makes it possible to process the data from the GDP drifter and to select only the values that interest us.

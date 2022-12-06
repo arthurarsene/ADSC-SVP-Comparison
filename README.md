@@ -1,3 +1,5 @@
+# A robust framework for comparing Lagrangian and gridded Eulerian velocity fields: an example application to surface drifters and altimetry-derived surface currents
+
 ## Table of contents
 1. [Introduction](#introduction)
 2. [Requirements](#requirements)

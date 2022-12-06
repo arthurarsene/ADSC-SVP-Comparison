@@ -1,11 +1,22 @@
 ## Table of contents
-1. [Requirements](#requirements)
-2. [Download data](#download)
+1. [Introduction](#introduction)
+2. [Requirements](#requirements)
+3. [Download data](#download)
     1. [Geostrophy data set](#geostrophy)
     2. [Geostrophy+Ekman data set](#geostrophy_ekman)
     3. [Global Drifter Program (GDP) trajectories data set](#gdp)
     4. [Bathymetry Data](#bathy)
 
+
+## Introduction<a name="introduction"></a>
+
+The methodology presented consists of three steps:
+    - Point-wise comparison between gridded Eulerian and Lagrangian velocity fields
+    - Eulerian gridding of Lagrangian velocities
+    - Observed and synthetic trajectories
+    
+Each step is presented in a separate python notebook.
+A python notebook also makes it possible to process the data from the GDP drifter and to select only the values that interest us.
 
 ## Requirements<a name="requirements"></a>
 

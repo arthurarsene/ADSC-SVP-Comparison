@@ -1,13 +1,13 @@
 ## Table of contents
-1. [Introduction](#requirements)
-2. [Some paragraph](#download)
-    1. [Sub paragraph](#geostrophy)
-    2. [Sub paragraph](#geostrophy_ekman)
-    3. [Sub paragraph](#gdp)
-    4. [Sub paragraph](#bathy)
+1. [Requirements](#requirements)
+2. [Download data](#download)
+    1. [Geostrophy data set](#geostrophy)
+    2. [Geostrophy+Ekman data set](#geostrophy_ekman)
+    3. [Global Drifter Program (GDP) trajectories data set](#gdp)
+    4. [Bathymetry Data](#bathy)
 
 
-### Requirements<a name="requirements"></a>
+## Requirements<a name="requirements"></a>
 
 You can install all libraries used in the notebooks from the terminal with the following command:
 
@@ -46,7 +46,7 @@ Similarly, the Geostrophy + Ekman historical [data set](https://doi.org/10.48670
 python -m motuclient --motu https://my.cmems-du.eu/motu-web/Motu --service-id MULTIOBS_GLO_PHY_REP_015_004-TDS --product-id dataset-uv-rep-daily --longitude-min -49 --longitude-max -40 --latitude-min 59 --latitude-max 62 --date-min "1993-01-02 00:00:00" --date-max "2021-12-31 23:59:59" --depth-min 15 --depth-max 15 --variable uo --variable vo --out-dir ./data/ADSC/ --out-name geo_ekman_daily_gdp.nc --user <USERNAME> --pwd <PASSWORD>
 ```
 
-### GDP trajectories data set <a name="gdp"></a>
+### Global Drifter Program (GDP) trajectories data set <a name="gdp"></a>
 
 Your submitted request was: request_gld.20221202_104507
 Drogue=1

@@ -60,6 +60,9 @@ Similarly, the Geostrophy + Ekman historical [data set](https://doi.org/10.48670
 ```bash
 python -m motuclient --motu https://my.cmems-du.eu/motu-web/Motu --service-id MULTIOBS_GLO_PHY_REP_015_004-TDS --product-id dataset-uv-rep-daily --longitude-min -49 --longitude-max -40 --latitude-min 59 --latitude-max 62 --date-min "1993-01-02 00:00:00" --date-max "2021-12-31 23:59:59" --depth-min 15 --depth-max 15 --variable uo --variable vo --out-dir ./data/ADSC/ --out-name geo_ekman_daily_gdp.nc --user <USERNAME> --pwd <PASSWORD>
 ```
+```bash
+python -m motuclient --motu https://my.cmems-du.eu/motu-web/Motu --service-id SEALEVEL_GLO_PHY_L4_MY_008_047-TDS --product-id cmems_obs-sl_glo_phy-ssh_my_allsat-l4-duacs-0.25deg_P1D --longitude-min -53 --longitude-max -40 --latitude-min 57 --latitude-max 62 --date-min "1993-01-02 00:00:00" --date-max "2021-12-31 23:59:59" --variable ugos --variable vgos --out-dir ./data/ADSC/ --out-name geo_daily_gdp.nc --user <USERNAME> --pwd <PASSWORD>
+```
 
 ### Global Drifter Program (GDP) trajectories data set <a name="gdp"></a>
 

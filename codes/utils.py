@@ -35,7 +35,7 @@ y000 = iso000[:,1]
 
 # Define functions
 
-############### PLOTS ############### 
+############### PLOTTING FUNCTIONS ############### 
 
 def createFigurewithProjection(figsize, nrows, ncols, bounds):
     
@@ -273,3 +273,19 @@ def drifterDailyResampling(timeaxis, drifter_dataset, shift=12):
     ALONG, ACROSS = AlongAcrossComponent(LON, LAT, complex_velocity)
 
     return TIME, LON, LAT, U, V, ALONG, ACROSS
+
+############### OBSERVED AND SYNTHETIC TRAJECTORY METHOD ###############
+
+def SkillScore(lonref, latref, lonsyn, latsyn):
+
+    d = g.inv(lonref, latref, lonsyn, latsyn)[2]
+    dl = g.inv(lonref[:-1], latref[:-1], lonref[1:], latref[1:])[2]
+
+    c = np.sum(d)/np.sum(np.cumsum(dl))
+
+    if c > 1:
+        s = 0
+    else: 
+        s = 1 - c
+
+    return s

@@ -63,14 +63,18 @@ python -m motuclient --motu https://my.cmems-du.eu/motu-web/Motu --service-id MU
 
 ### Global Drifter Program (GDP) trajectories data set <a name="gdp"></a>
 
+GDP interpolated at 6-hourly frequency can be downloaded from the NOAA AOML Physical Oceanography Department [website](https://www.aoml.noaa.gov/phod/gdp/interpolated/data/subset.php).
+
+Here we select to download a subset of interpolated data with the following parameters. After entering those parameters, checked the "Drogue On Only Data" box and enter your email adress, you will receive the link to download your subset by email.
+
 fromDate=1993/01/02\
-toDate=2021/12/31
-\\
+toDate=2021/12/31\
+\
 northernEdge=62\
 southernEdge=58\
 westernEdge=-51\
 easternEdge=-40\
-\\
+\
 Drogue=1 (checked)
 
 ### Bathymetry Data <a name="bathy"></a>

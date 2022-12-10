@@ -63,15 +63,15 @@ python -m motuclient --motu https://my.cmems-du.eu/motu-web/Motu --service-id MU
 
 ### Global Drifter Program (GDP) trajectories data set <a name="gdp"></a>
 
-Your submitted request was: request_gld.20221202_104507
-Drogue=1
-fromDate=1993/01/02
+fromDate=1993/01/02\
 toDate=2021/12/31
-northernEdge=62
-southernEdge=59
-westernEdge=-49
-easternEdge=-40
-
+\\
+northernEdge=62\
+southernEdge=58\
+westernEdge=-51\
+easternEdge=-40\
+\\
+Drogue=1 (checked)
 
 ### Bathymetry Data <a name="bathy"></a>
 

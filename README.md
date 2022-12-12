@@ -10,17 +10,12 @@ Arthur Coquereau and Nicholas P. Foukal
     2. [Geostrophy+Ekman data set](#geostrophy_ekman)
     3. [Global Drifter Program (GDP) trajectories data set](#gdp)
     4. [Bathymetry Data](#bathy)
+4. [3-step methodology notebooks](#methodology)
 
 
 ## Introduction<a name="introduction"></a>
 
-The methodology presented consists of three steps:
- - Point-wise comparison between gridded Eulerian and Lagrangian velocity fields
- - Eulerian gridding of Lagrangian velocities
- - Observed and synthetic trajectories
-    
-Each step is presented in a separate python notebook.
-A python notebook also makes it possible to process the data from the GDP drifter and to select only the values that interest us.
+This repository introduce a 3-step methodology allowing a robust comparison between Lagrangian and gridded Eulerian data sets.
 
 ## Requirements<a name="requirements"></a>
 
@@ -83,3 +78,13 @@ A set of bathymetric data is provided in the ```./data/bathy``` folder. It is a 
 You can directly select the size of the domain you need. Here, the selected domain extent from 59° to 62°N and -49° to -40°E.
 
 Credits: GEBCO Compilation Group (2022) GEBCO 2022 Grid (doi:10.5285/e0f0bb80- ab44-2739-e053-6c86abc0289c).
+
+## 3-step methodology notebooks <a name="methodology"></a>
+
+The methodology presented consists of three steps:
+ - Point-wise comparison between gridded Eulerian and Lagrangian velocity fields (```./codes/point_wise_comparison.ipynb```)
+ - Eulerian gridding of Lagrangian velocities (```./codes/eulerian_gridding.ipynb```)
+ - Observed and synthetic trajectories (```./codes/synthetic_trajectories.ipynb```)
+    
+Each step is presented in a separate python notebook in the ```./codes``` folder.
+A python notebook also makes it possible to process the data from the GDP drifter and to select only the values that interest us (```./codes/read_and_format_gdp_trajectories.ipynb```).

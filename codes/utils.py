@@ -38,6 +38,7 @@ y000 = iso000[:,1]
 ############### PLOTTING FUNCTIONS ############### 
 
 def createFigurewithProjection(figsize, nrows, ncols, bounds):
+    """ Create a figure that where data is printed in a map. Return different axes where shapeAxis can be called to add the coastline the latitude and longitude grids etc. """
     
     lon_min, lon_max, lat_min, lat_max = bounds
     
@@ -52,6 +53,7 @@ def createFigurewithProjection(figsize, nrows, ncols, bounds):
     return fig, axes, rect
 
 def shapeAxis(ax, rect, addCoastline):
+    """ Create a map with coastline and lat/lon grids etc..."""
     
     proj_to_data = ccrs.PlateCarree()._as_mpl_transform(ax) - ax.transData
     rect_in_target = proj_to_data.transform_path(rect)
@@ -162,10 +164,71 @@ def srl(obsSTD, s, r, l, boolean, fname, cs, mark, size, alpha, title):
 
     plt.tight_layout()
 
+def plotTaylorPointWiseMethod(std_array, corr_array, title):
+    """Plot the Taylor diagram for a particular velocity component"""
+
+    # Standard deviation of observed data
+    obsSTD = 1.0
+
+    # Standard deviation of each predicted data
+    s_geo= np.array(std_array)[:, 1]/np.array(std_array)[:, 0]
+    s_ek = np.array(std_array)[:, 2]/np.array(std_array)[:, 0]
+
+
+    smean = [
+        np.mean(s_geo),
+        np.mean(s_ek)
+    ]
+
+    s = np.concatenate((s_geo, s_ek, smean), axis=None)
+
+    # The correlation coefficient of each predicted data
+    r_geo = np.array(corr_array)[:, 0]
+    r_ek = np.array(corr_array)[:, 1]
+
+    rmean = [
+        np.mean(r_geo),
+        np.mean(r_ek)
+    ]
+
+    r = np.concatenate((r_geo, r_ek, rmean), axis=None)
+
+    # Labels of each predicted data
+    l_geo = ['Geostrophy']*len(s_geo)
+    l_ek = ['Geostrophy + Ekman']*len(s_ek)
+
+    lmean = ['Geostrophy (average)', 'Geostrophy + Ekman (average)']
+
+    l = np.concatenate((l_geo, l_ek, lmean), axis=None)
+
+    cs = np.concatenate((['b']*len(s_geo), ['c']*len(s_ek), ['b', 'c']), axis=None)
+
+    a = (np.zeros(len(std_array)))
+    a[0] = 1
+
+    boolean = np.concatenate((a,a, [True, True]))
+
+    # Output file name
+    fname = 'TaylorDiagram.jpg'
+
+    rnd = ['o']*len(std_array)
+
+    mark = np.concatenate((rnd, rnd, ['*', '*']))
+
+    size = np.ones(len(mark))*5
+    size[-2:] = 25
+
+    alpha = np.ones(len(mark))*0.3
+    alpha[-2:] = 1
+
+    srl(obsSTD, s, r, l, boolean, fname, cs, mark, size, alpha, title)
+
+    warnings.filterwarnings('ignore')
 
 ############### COMPUTE ###############
 
 def AlongAcrossComponent(lon, lat, comp):
+    """ Return along and across components of velocities from locations and complex velocities"""
     
     ALONG = []
     ACROSS = []
@@ -211,6 +274,7 @@ def AlongAcrossComponent(lon, lat, comp):
 
 
 def CenterGravity(lons, lats):
+    """ Compute the center of gravity of a cloud of locations, in projecting in a 3D cartesian space (better than simply averaging lon and lat)"""
     
     lats = np.deg2rad(lats)
     lons = np.deg2rad(lons)
@@ -231,6 +295,7 @@ def CenterGravity(lons, lats):
 
 
 def drifterDailyResampling(timeaxis, drifter_dataset, shift=12):
+    """ Resample the drifter data similary than a ADSC time axis"""
 
     lon_origin = drifter_dataset.lon.values
     lat_origin = drifter_dataset.lat.values

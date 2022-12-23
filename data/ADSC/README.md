@@ -1,0 +1,1 @@
+This folder will contain the altimetry-derived surface currents (Geostrophy and Geostrophy+Ekman) downloaded from the terminal.

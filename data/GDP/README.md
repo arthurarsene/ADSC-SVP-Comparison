@@ -1,0 +1,1 @@
+This folder will contain the GDP drifter trajectories downloaded from NOAA AOML Physical Oceanography Department website.

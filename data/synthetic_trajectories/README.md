@@ -1,0 +1,1 @@
+This folder will contain the synthetic trajectories simulated with Parcels using the notebook: synthetic_trajectories.ipynb

@@ -15,7 +15,7 @@ Arthur Coquereau and Nicholas P. Foukal
 
 ## Introduction<a name="introduction"></a>
 
-This repository introduce a 3-step methodology allowing a robust comparison between Lagrangian and gridded Eulerian data sets.
+This repository introduces a 3-step methodology allowing a robust comparison between Lagrangian and gridded Eulerian data sets.
 
 ## Requirements<a name="requirements"></a>
 

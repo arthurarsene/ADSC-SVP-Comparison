@@ -15,7 +15,9 @@ Arthur Coquereau and Nicholas P. Foukal
 
 ## Introduction<a name="introduction"></a>
 
-This repository introduces a 3-step methodology allowing a robust comparison between Lagrangian and gridded Eulerian data sets.
+This repository presented Python Notebooks to apply the methodology described in [Coquereau and Foukal (preprint, 2022)](https://egusphere.copernicus.org/preprints/2022/egusphere-2022-1450/). This 3-step methodology aims to provide a robust comparison between Lagrangian and gridded Eulerian data sets.
+
+Coquereau, A. and Foukal, N. P.: A robust framework for comparing Lagrangian and gridded Eulerian velocity fields: an example application to surface drifters and altimetry-derived surface currents, EGUsphere [preprint], https://doi.org/10.5194/egusphere-2022-1450, 2022.
 
 ## Requirements<a name="requirements"></a>
 

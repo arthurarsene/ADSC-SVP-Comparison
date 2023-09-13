@@ -1,5 +1,7 @@
 # A robust framework for comparing Lagrangian and gridded Eulerian velocity fields: an example application to surface drifters and altimetry-derived surface currents
 
+[![DOI](https://zenodo.org/badge/572132011.svg)](https://zenodo.org/badge/latestdoi/572132011)
+
 [Arthur Coquereau and Nicholas P. Foukal (preprint, 2022)](https://egusphere.copernicus.org/preprints/2022/egusphere-2022-1450/)
 
 ## Table of contents

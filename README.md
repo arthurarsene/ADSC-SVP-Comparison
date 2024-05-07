@@ -3,6 +3,7 @@
 [![DOI](https://zenodo.org/badge/572132011.svg)](https://zenodo.org/badge/latestdoi/572132011)
 
 [Arthur Coquereau and Nicholas P. Foukal (preprint, 2022)](https://egusphere.copernicus.org/preprints/2022/egusphere-2022-1450/)
+[Arthur Coquereau and Nicholas P. Foukal (final paper, 2023)](https://doi.org/10.5194/os-19-1393-2023)
 
 ## Table of contents
 1. [Introduction](#introduction)
@@ -17,9 +18,10 @@
 
 ## Introduction<a name="introduction"></a>
 
-This repository presents Python notebooks demonstrating how to apply the methodology described in [Coquereau and Foukal (preprint, 2022)](https://egusphere.copernicus.org/preprints/2022/egusphere-2022-1450/). This 3-step methodology aims to provide a robust comparison between Lagrangian and gridded Eulerian data sets.
+This repository presents Python notebooks demonstrating how to apply the methodology described in [Coquereau and Foukal (preprint, 2022)](https://egusphere.copernicus.org/preprints/2022/egusphere-2022-1450/) and in [Coquereau and Foukal (final paper, 2023)](https://doi.org/10.5194/os-19-1393-2023). This 3-step methodology aims to provide a robust comparison between Lagrangian and gridded Eulerian data sets.
 
 > Coquereau, A. and Foukal, N. P.: A robust framework for comparing Lagrangian and gridded Eulerian velocity fields: an example application to surface drifters and altimetry-derived surface currents, EGUsphere [preprint], https://doi.org/10.5194/egusphere-2022-1450, 2022.
+> Coquereau, A. and Foukal, N. P.: Evaluating altimetry-derived surface currents on the south Greenland shelf with surface drifters, Ocean Sci., 19, 1393–1411, https://doi.org/10.5194/os-19-1393-2023, 2023. 
 
 ## Requirements<a name="requirements"></a>
 

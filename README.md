@@ -3,6 +3,7 @@
 [![DOI](https://zenodo.org/badge/572132011.svg)](https://zenodo.org/badge/latestdoi/572132011)
 
 [Arthur Coquereau and Nicholas P. Foukal (preprint, 2022)](https://egusphere.copernicus.org/preprints/2022/egusphere-2022-1450/)
+
 [Arthur Coquereau and Nicholas P. Foukal (final paper, 2023)](https://doi.org/10.5194/os-19-1393-2023)
 
 ## Table of contents
